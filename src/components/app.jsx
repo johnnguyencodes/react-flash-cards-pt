@@ -8,7 +8,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: "view-cards"
+      view: "view-cards",
+      cards: []
     }
     this.setView = this.setView.bind(this);
   }
@@ -33,6 +34,7 @@ class App extends React.Component {
   }
 
   render() {
+    console.log("Cards from App:", this.state.cards);
     return (
       <div className="text-center">
         <Nav setView={this.setView} />
