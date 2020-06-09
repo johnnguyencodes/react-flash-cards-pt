@@ -20,6 +20,10 @@ class App extends React.Component {
     });
   }
 
+  saveCards() {
+    localStorage.flash-cards = JSON.stringify(this.state.cards)
+  }
+
   getView() {
     switch (this.state.view) {
       case 'create-card':
