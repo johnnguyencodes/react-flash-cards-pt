@@ -35,7 +35,7 @@ class App extends React.Component {
   getView() {
     switch (this.state.view) {
       case 'create-card':
-        return <CreateCard onSubmit={this.addCard}/>;
+        return <CreateCard onSubmit={this.addCard} setView={this.setView}/>;
       case 'review-cards':
         return <ReviewCards />;
       case 'view-cards':
@@ -47,9 +47,10 @@ class App extends React.Component {
 
   render() {
     console.log("Cards from App:", this.state.cards);
+    const { viewState } = this.state.view;
     return (
       <div className="text-center">
-        <Nav setView={this.setView} />
+        <Nav viewState={viewState} setView={this.setView} whatIsState={this.state.view}/>
         { this.getView() }
       </div>
     );
