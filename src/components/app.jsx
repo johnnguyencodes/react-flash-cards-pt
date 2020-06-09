@@ -35,7 +35,7 @@ class App extends React.Component {
   getView() {
     switch (this.state.view) {
       case 'create-card':
-        return <CreateCard addCard={this.addCard}/>;
+        return <CreateCard onSubmit={this.addCard}/>;
       case 'review-cards':
         return <ReviewCards />;
       case 'view-cards':
