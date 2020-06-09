@@ -12,6 +12,8 @@ class App extends React.Component {
       cards: []
     }
     this.setView = this.setView.bind(this);
+    this.saveCards = this.saveCards.bind(this);
+    this.addCard = this.addCard.bind(this);
   }
 
   setView(viewState) {
@@ -21,13 +23,19 @@ class App extends React.Component {
   }
 
   saveCards() {
-    localStorage.flash-cards = JSON.stringify(this.state.cards)
+    localStorage.setItem("flash-cards", JSON.stringify(this.state.cards));
+  }
+
+  addCard(card) {
+    this.setState({
+      cards: this.state.cards.concat(card)
+    }, this.saveCards);
   }
 
   getView() {
     switch (this.state.view) {
       case 'create-card':
-        return <CreateCard />;
+        return <CreateCard addCard={this.addCard}/>;
       case 'review-cards':
         return <ReviewCards />;
       case 'view-cards':
