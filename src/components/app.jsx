@@ -8,9 +8,12 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: "view-cards"
+      view: "view-cards",
+      cards: []
     }
     this.setView = this.setView.bind(this);
+    this.saveCards = this.saveCards.bind(this);
+    this.addCard = this.addCard.bind(this);
   }
 
   setView(viewState) {
@@ -19,10 +22,20 @@ class App extends React.Component {
     });
   }
 
+  saveCards() {
+    localStorage.setItem("flash-cards", JSON.stringify(this.state.cards));
+  }
+
+  addCard(card) {
+    this.setState({
+      cards: this.state.cards.concat(card)
+    }, this.saveCards);
+  }
+
   getView() {
     switch (this.state.view) {
       case 'create-card':
-        return <CreateCard />;
+        return <CreateCard onSubmit={this.addCard} setView={this.setView}/>;
       case 'review-cards':
         return <ReviewCards />;
       case 'view-cards':
@@ -33,9 +46,11 @@ class App extends React.Component {
   }
 
   render() {
+    console.log("Cards from App:", this.state.cards);
+    const { viewState } = this.state.view;
     return (
       <div className="text-center">
-        <Nav setView={this.setView} />
+        <Nav viewState={viewState} setView={this.setView} whatIsState={this.state.view}/>
         { this.getView() }
       </div>
     );
